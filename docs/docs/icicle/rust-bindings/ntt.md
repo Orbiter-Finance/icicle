@@ -73,7 +73,7 @@ pub struct NTTConfig<'a, S> {
     pub batch_size: i32,
     pub columns_batch: bool,
     pub ordering: Ordering,
-    are_inputs_on_device: bool,    
+    are_inputs_on_device: bool,  
     are_outputs_on_device: bool,
     pub is_async: bool,
     pub ntt_algorithm: NttAlgorithm,
@@ -85,24 +85,16 @@ The `NTTConfig` struct is a configuration object used to specify parameters for 
 #### Fields
 
 - **`ctx: DeviceContext<'a>`**: Specifies the device context, including the device ID and the stream ID.
-
 - **`coset_gen: S`**: Defines the coset generator used for coset (i)NTTs. By default, this is set to `S::one()`, indicating that no coset is being used.
-
 - **`batch_size: i32`**: Determines the number of NTTs to compute in a single batch. The default value is 1, meaning that operations are performed on individual inputs without batching. Batch processing can significantly improve performance by leveraging parallelism in GPU computations.
-
 - **`columns_batch`**: If true the function will compute the NTTs over the columns of the input matrix and not over the rows. Defaults to `false`.
-
 - **`ordering: Ordering`**: Controls the ordering of inputs and outputs for the NTT operation. This field can be used to specify decimation strategies (in time or in frequency) and the type of butterfly algorithm (Cooley-Tukey or Gentleman-Sande). The ordering is crucial for compatibility with various algorithmic approaches and can impact the efficiency of the NTT.
-
 - **`are_inputs_on_device: bool`**: Indicates whether the input data has been preloaded on the device memory. If `false` inputs will be copied from host to device.
-
 - **`are_outputs_on_device: bool`**: Indicates whether the output data is preloaded in device memory. If `false` outputs will be copied from host to device. If the inputs and outputs are the same pointer NTT will be computed in place.
-
 - **`is_async: bool`**: Specifies whether the NTT operation should be performed asynchronously. When set to `true`, the NTT function will not block the CPU, allowing other operations to proceed concurrently. Asynchronous execution requires careful synchronization to ensure data integrity and correctness.
-
 - **`ntt_algorithm: NttAlgorithm`**: Can be one of `Auto`, `Radix2`, `MixedRadix`.
-`Auto` will select `Radix 2` or `Mixed Radix` algorithm based on heuristics.
-`Radix2` and `MixedRadix` will force the use of an algorithm regardless of the input size or other considerations. You should use one of these options when you know for sure that you want to
+  `Auto` will select `Radix 2` or `Mixed Radix` algorithm based on heuristics.
+  `Radix2` and `MixedRadix` will force the use of an algorithm regardless of the input size or other considerations. You should use one of these options when you know for sure that you want to
 
 #### Usage
 
@@ -163,7 +155,6 @@ where
 #### Parameters
 
 - **`primitive_root`**: The primitive root of unity, chosen based on the maximum NTT size required for the computations. It must be of an order that is a power of two. This root is used to generate twiddle factors that are essential for the NTT operations.
-
 - **`ctx`**: A reference to a `DeviceContext` specifying which device and stream the computation should be executed on.
 
 #### Returns
@@ -173,7 +164,6 @@ where
 #### Parameters
 
 - **`primitive_root`**: The primitive root of unity, chosen based on the maximum NTT size required for the computations. It must be of an order that is a power of two. This root is used to generate twiddle factors that are essential for the NTT operations.
-
 - **`ctx`**: A reference to a `DeviceContext` specifying which device and stream the computation should be executed on.
 
 #### Returns
